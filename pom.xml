@@ -37,19 +37,20 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- Spring Cloud AWS - Starter Core (buenas prácticas incluirlo para config/credentials) -->
-        <!-- La versión es manejada por la BOM -->
         <dependency>
             <groupId>io.awspring.cloud</groupId>
             <artifactId>spring-cloud-aws-starter</artifactId>
         </dependency>
 
-        <!-- Spring Cloud AWS - Starter para SQS -->
-        <!-- La versión es manejada por la BOM -->
         <dependency>
             <groupId>io.awspring.cloud</groupId>
             <artifactId>spring-cloud-aws-starter-sqs</artifactId>
         </dependency>
+
+				<dependency>
+    			<groupId>software.amazon.awssdk</groupId>
+    			<artifactId>scheduler</artifactId>
+				</dependency>
 
         <!-- Spring Boot Starters -->
         <dependency>
@@ -68,6 +69,12 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+
+				<dependency>
+  					<groupId>io.github.cdimascio</groupId>
+  					<artifactId>dotenv-java</artifactId>
+  					<version>3.0.0</version>
+				</dependency>
 
         <!-- Base de Datos -->
         <dependency>
