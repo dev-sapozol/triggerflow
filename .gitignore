@@ -2,6 +2,9 @@ application-dev.yml
 .env
 .env.dev
 
+# Flyway
+customConfig.conf
+
 # Maven / Java
 target/
 *.log
