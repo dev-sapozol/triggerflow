@@ -1,0 +1,14 @@
+# Dockerfile.dev
+FROM maven:3.9.6-eclipse-temurin-21
+
+WORKDIR /app
+
+COPY pom.xml .
+RUN --mount=type=cache,target=/root/.m2 mvn dependency:resolve
+
+COPY . .
+
+EXPOSE 8080
+
+# Habilita DevTools y usa spring-boot:run
+CMD ["mvn", "spring-boot:run"]

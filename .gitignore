@@ -1,4 +1,14 @@
+application-dev.yml
 .env
+.env.dev
+
+# Maven / Java
+target/
+*.log
+*.class
+*.jar
+*.war
+*.ear
 
 HELP.md
 target/
@@ -33,3 +43,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Docker
+docker-compose.override.yml
+**/mysql_data/
+**/tmp/ 

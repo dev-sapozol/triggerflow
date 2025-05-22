@@ -1,12 +1,14 @@
-package com.spl.triggerflow.services;
+package com.spl.triggerflow.service;
 
 import java.util.UUID;
+
+import org.springframework.stereotype.Service;
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.scheduler.SchedulerClient;
 import software.amazon.awssdk.services.scheduler.model.*;
 
-
+@Service
 public class TaskSchedulerServices {
 
   public static void main (String[] args) {

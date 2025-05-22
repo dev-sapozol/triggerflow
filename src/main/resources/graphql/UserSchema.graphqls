@@ -1,0 +1,47 @@
+enum Gender {
+    MALE
+    FEMALE
+    OTHER
+}
+
+type User {
+  id: ID
+  name: String
+  password: String
+  email: String
+  fatherName: String
+  motherName: String
+  country: String
+  gender: Gender
+  birthday: String
+  cellphone: String
+  age: Int
+  timezone: String
+  createdAt: String
+  updatedAt: String
+}
+
+extend type Query {
+  users: [User]
+  user(id: ID!): User
+}
+
+
+input CreateUserInput {
+  name: String!
+  password: String!
+  email: String!
+  fatherName: String!
+  motherName: String
+  country: String!
+  gender: Gender!
+  birthday: String!
+  cellphone: String!
+  age: Int!
+  timezone: String!
+}
+
+extend type Mutation {
+  createUser(input: CreateUserInput!): User!
+}
+

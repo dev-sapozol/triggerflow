@@ -1,0 +1,12 @@
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <!-- Para excepciones específicas, o globalmente -->
+    <logger name="org.springframework.boot" level="ERROR"/>
+    <logger name="org.hibernate" level="ERROR"/>
+</configuration>

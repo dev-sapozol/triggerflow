@@ -1,0 +1,49 @@
+type EmailInbox {
+  id: ID
+  userId: ID
+  from: String
+  to: String
+  cc: String
+  bcc: String
+  subject: String
+  preview: String
+  inboxType: Int
+  isRead: Boolean
+  hasAttachment: Boolean
+  importance: Int
+  inReplyTo: String
+  references: String
+  s3Url: String
+  threadId: String
+  textBody: String
+  htmlBody: String
+  deletedAt: String
+  createdAt: String
+  updatedAt: String
+}
+
+extend type Query {
+  emailinboxes: [EmailInbox]
+  emailinbox(id: ID!): EmailInbox
+}
+
+input CreateEmailInput {
+  userId: ID!
+  from: String!
+  to: String!
+  cc: String
+  bcc: String
+  subject: String!
+  preview: String!
+  inboxType: Int!
+  isRead: Boolean!
+  hasAttachment: Boolean!
+  importance: Int!
+  textBody: String!
+  htmlBody: String
+  folder: Int
+}
+
+extend type Mutation {
+  createEmail(input: CreateEmailInput!): EmailInbox!
+}

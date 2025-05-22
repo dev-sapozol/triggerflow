@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: triggerflow
+    admin:
+      enabled: false
+  cloud:
+    aws:
+      region:
+        static: us-east-1
+      sqs:
+        listener:
+          max-concurrent-messages: 10
+          poll-timeout: 10
+  profiles:
+    active: dev
+  mail:
+    host: email-smtp.us-east-1.amazonaws.com
+    port: 587
+    username: ${SMTP_USERNAME}
+    password: ${SMTP_PASSWORD}
+    protocol: smtp
+    properties:
+      mail:
+        debug: true
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  devtools:
+    restart:
+      additional-paths:
+      - src/main/resources/graphql
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+logging:
+  level:
+    root: INFO
+    '[com.spl.triggerflow]': INFO
+    '[org.springframework]': WARN
+    '[org.hibernate]': WARN
+    '[software.amazon.awssdk]': WARN
+    '[com.zaxxer.hikari]': INFO
+    '[org.springframework.mail]': DEBUG
+    org:
+      springframework:
+        boot: WARN
+        web: WARN
+      apache:
+        catalina: WARN
+        coyote: WARN
