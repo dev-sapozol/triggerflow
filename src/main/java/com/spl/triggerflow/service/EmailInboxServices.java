@@ -2,6 +2,8 @@ package com.spl.triggerflow.service;
 
 import org.springframework.stereotype.Service;
 import com.spl.triggerflow.dto.email_inbox.CreateEmailInput;
+import com.spl.triggerflow.dto.email_inbox.ForwardEmailInput;
+import com.spl.triggerflow.dto.email_inbox.ReplyEmailInput;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import jakarta.mail.MessagingException;
+import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
 import software.amazon.awssdk.services.sqs.model.Message;
@@ -36,7 +39,7 @@ public class EmailInboxServices {
     this.sqsAsyncClient = sqsAsyncClient;
   }
 
-  @Scheduled(cron = "0 */5 * * * *")
+  @Scheduled(cron = "0 */30 * * * *")
   public void pollQueueReceiveEmail() {
     log.info("Iniciando sondeo de la cola SQS...");
     ReceiveMessageRequest request = ReceiveMessageRequest.builder()
@@ -75,8 +78,22 @@ public class EmailInboxServices {
     log.info("INICIANDO ENVIO DE CORREO");
     MimeMessage mimeMessage = mailSender.createMimeMessage();
     MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "utf-8");
+    String fromText = emailInput.getFrom();
+    String[] parts = fromText.split(",");
 
-    helper.setFrom(emailInput.getFrom());
+    if (parts.length != 2) {
+      throw new IllegalArgumentException("Formato de correo no válido");
+    }
+
+    String name = parts[0].trim();
+    String email = parts[1].trim();
+
+    try {
+      helper.setFrom(new InternetAddress(email, name));
+    } catch (Exception e) {
+      throw new IllegalArgumentException("Formato de correo no válido", e);
+    }
+
     String[] toAddresses = parseAddresses(emailInput.getTo());
     if (toAddresses.length > 0)
       helper.setTo(toAddresses);
@@ -100,6 +117,14 @@ public class EmailInboxServices {
     helper.setText(isHtml ? emailInput.getHtmlBody() : emailInput.getTextBody(), isHtml);
     mailSender.send(mimeMessage);
     log.info("Correo para `{}` enviado con éxito", emailInput.getTo());
+  }
+
+  public void replyEmail(ReplyEmailInput replyEmail) throws MessagingException {
+    
+  }
+
+  public void forwardEmail(ForwardEmailInput forwardEmail) throws MessagingException {
+    
   }
 
   private String[] parseAddresses(String addressesString) {

@@ -25,7 +25,7 @@ public class ScheduledTaskListenerServices {
     this.sqsAsyncClient = sqsAsyncClient;
   }
 
-  @Scheduled(cron = "0 */5 * * * *")
+  @Scheduled(cron = "0 */30 * * * *")
   public void pollQueueReceiveScheduledTask() {
     log.info("Iniciando sondeo de la cola SQS...");
     ReceiveMessageRequest request = ReceiveMessageRequest.builder()
