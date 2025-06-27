@@ -1,14 +1,30 @@
-# Dockerfile.dev
 FROM maven:3.9.6-eclipse-temurin-21
 
+ARG UID=1000
+ARG GID=1000
+
+# Crear usuario no root
+RUN groupadd -g $GID appgroup \
+ && useradd -m -u $UID -g appgroup appuser
+
+USER appuser
 WORKDIR /app
 
-COPY pom.xml .
-RUN --mount=type=cache,target=/root/.m2 mvn dependency:resolve
+# Configurar MAVEN_CONFIG para que use su propio directorio
+ENV MAVEN_CONFIG=/home/appuser/.m2
 
-COPY . .
+# Copiar pom.xml con ownership correcto
+COPY --chown=appuser:appgroup pom.xml .
+
+# 🛠️ Montar caché en /root/.m2 y copiar dependencias a /home/appuser/.m2
+RUN --mount=type=cache,target=/root/.m2 \
+    mkdir -p $MAVEN_CONFIG \
+    && cp -r /root/.m2/repository $MAVEN_CONFIG || true \
+    && mvn dependency:resolve
+
+# Copiar código fuente
+COPY --chown=appuser:appgroup src ./src
 
 EXPOSE 8080
 
-# Habilita DevTools y usa spring-boot:run
-CMD ["mvn", "spring-boot:run"]
+CMD ["mvn", "spring-boot:run", "-Dspring-boot.run.fork=false"]

@@ -30,6 +30,11 @@ spring:
     restart:
       additional-paths:
       - src/main/resources/graphql
+  graphql:
+    http:
+      path: /graphql
+    graphiql:
+      enabled: true
 
 server:
   port: 8080

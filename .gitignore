@@ -1,3 +1,4 @@
+data/
 application-dev.yml
 .env
 .env.dev

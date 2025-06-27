@@ -17,15 +17,30 @@ type User {
   cellphone: String
   age: Int
   timezone: String
+  role: String
+  language: String
   createdAt: String
   updatedAt: String
+}
+
+type GetBasicDataUser {
+  id: ID
+  name: String
+  fatherName: String
+  motherName: String
+  email: String
+  country: String
+  cellphone: String
+  timezone: String
+  role: String
+  language: String
 }
 
 extend type Query {
   users: [User]
   user(id: ID!): User
+  getBasicDataUser: GetBasicDataUser
 }
-
 
 input CreateUserInput {
   name: String!
@@ -39,9 +54,29 @@ input CreateUserInput {
   cellphone: String!
   age: Int!
   timezone: String!
+  role: String!
+  language: String!
+}
+
+input UpdateUserInput {
+  id: ID!
+  name: String
+  password: String
+  email: String
+  fatherName: String
+  motherName: String
+  country: String
+  gender: Gender
+  birthday: String
+  cellphone: String
+  age: Int
+  timezone: String
+  role: String
+  language: String
 }
 
 extend type Mutation {
   createUser(input: CreateUserInput!): User!
+  updateUser(id: ID!, input: UpdateUserInput!): User!
 }
 

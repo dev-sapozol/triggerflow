@@ -104,6 +104,24 @@ public class EmailInboxEntity {
     this.updatedAt = updatedAt;
   }
 
+    public EmailInboxEntity(Long id, String from, String to, String cc, String subject, String preview,
+      Boolean isRead, Boolean hasAttachment, Integer importance, String threadId, Integer folder,
+      LocalDateTime deletedAt, LocalDateTime createdAt) {
+    Id = id;
+    this.from = from;
+    this.to = to;
+    this.cc = cc;
+    this.subject = subject;
+    this.preview = preview;
+    this.isRead = isRead;
+    this.hasAttachment = hasAttachment;
+    this.importance = importance;
+    this.threadId = threadId;
+    this.folder = folder;
+    this.deletedAt = deletedAt;
+    this.createdAt = createdAt;
+  }
+
   public Long getId() {
     return Id;
   }
@@ -279,5 +297,5 @@ public class EmailInboxEntity {
   public void setUpdatedAt(LocalDateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
-  
+
 }

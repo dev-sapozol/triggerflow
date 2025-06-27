@@ -44,6 +44,9 @@ public class UserEntity {
   private Integer age;
   private String timezone;
 
+  private String role;
+  private String language;
+
   @CreationTimestamp
   @Column(name = "created_at", nullable = false, updatable = false)
   private LocalDateTime createdAt;
@@ -56,12 +59,16 @@ public class UserEntity {
     MALE, FEMALE, OTHER
   }
 
+  public boolean isSuperAdmin() {
+        return "SUPERADMIN".equalsIgnoreCase(this.role);
+    }
+
   public UserEntity() {
   }
 
   public UserEntity(Long id, String name, String password, String email, String fatherName, String motherName,
       String country, Gender gender, LocalDate birthday, String cellphone, Integer age, String timezone,
-      LocalDateTime createdAt, LocalDateTime updatedAt) {
+      String role, String language, LocalDateTime createdAt, LocalDateTime updatedAt) {
     this.id = id;
     this.name = name;
     this.password = password;
@@ -74,8 +81,24 @@ public class UserEntity {
     this.cellphone = cellphone;
     this.age = age;
     this.timezone = timezone;
+    this.role = role;
+    this.language = language;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+  }
+
+  public UserEntity(Long id, String name, String fatherName, String motherName, String email, String country,
+      String cellphone, String timezone, String role, String language) {
+    this.id = id;
+    this.name = name;
+    this.fatherName = fatherName;
+    this.motherName = motherName;
+    this.email = email;
+    this.country = country;
+    this.cellphone = cellphone;
+    this.timezone = timezone;
+    this.role = role;
+    this.language = language;
   }
 
   public Long getId() {
@@ -172,6 +195,22 @@ public class UserEntity {
 
   public void setTimezone(String timezone) {
     this.timezone = timezone;
+  }
+
+  public String getRole() {
+    return role;
+  }
+
+  public void setRole(String role) {
+    this.role = role;
+  }
+
+  public String getLanguage() {
+    return language;
+  }
+
+  public void setLanguage(String language) {
+    this.language = language;
   }
 
   public LocalDateTime getCreatedAt() {

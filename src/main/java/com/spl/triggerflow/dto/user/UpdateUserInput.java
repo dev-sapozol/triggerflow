@@ -4,37 +4,38 @@ import com.spl.triggerflow.entity.UserEntity.Gender;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-class UpdateUserInput {
-  @NotBlank
+public class UpdateUserInput {
+  @NotNull
+  private Long id;
   private String name;
-  @NotBlank
   @Email
   private String email;
-  @NotBlank
   @Size(min = 8)
   private String password;
-  @NotBlank
   private String fatherName;
   private String motherName;
-  @NotBlank
   private String country;
-  @NotNull
   private Gender gender;
-  @NotBlank
   @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$")
   private String birthday;
-  @NotBlank
   private String cellphone;
-  @NotNull
   @Min(value = 0)
   private Integer age;
-  @NotBlank
   private String timezone;
+  private String role;
+  private String language;
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
 
   public String getName() {
     return name;
@@ -123,4 +124,21 @@ class UpdateUserInput {
   public void setTimezone(String timezone) {
     this.timezone = timezone;
   }
+
+  public String getRole() {
+    return role;
+  }
+
+  public void setRole(String role) {
+    this.role = role;
+  }
+
+  public String getLanguage() {
+    return language;
+  }
+
+  public void setLanguage(String language) {
+    this.language = language;
+  }
+
 }

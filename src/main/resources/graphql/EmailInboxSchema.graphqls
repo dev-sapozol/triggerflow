@@ -17,14 +17,42 @@ type EmailInbox {
   threadId: String
   textBody: String
   htmlBody: String
+  folder: Int
   deletedAt: String
   createdAt: String
   updatedAt: String
 }
 
+input EmailInboxFilter {
+  isRead: Boolean
+  importance: Int
+  hasAttachment: Boolean
+  folder: Int!
+  to: String
+  cc: String
+  deletedAt: String
+}
+
+type GetBasicEmailList {
+  id: ID
+  from: String
+  to: String
+  cc: String
+  subject: String
+  preview: String
+  isRead: Boolean
+  hasAttachment: Boolean
+  importance: Int
+  threadId: String
+  folder: Int
+  deletedAt: String
+  createdAt: String
+}
+
 extend type Query {
-  emailinboxes: [EmailInbox]
-  emailinbox(id: ID!): EmailInbox
+  getEmailList(input: EmailInboxFilter!): [GetBasicEmailList!]!
+  getBasicEmailList: [GetBasicEmailList]
+  getEmailByID(id: ID!): EmailInbox
 }
 
 input CreateEmailInput {
