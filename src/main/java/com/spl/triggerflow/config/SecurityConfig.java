@@ -29,7 +29,7 @@ import com.spl.triggerflow.security.JwtAuthFilter;
 public class SecurityConfig {
 
     @Autowired
-    private JwtAuthFilter jwtAuthFilter; // Este debe ser el filtro SIMPLE
+    private JwtAuthFilter jwtAuthFilter;
 
     @Autowired
     private CustomUserDetailsService userDetailsService;
@@ -66,7 +66,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/graphql/**", "/auth/**").permitAll()
+                        .requestMatchers( "/auth/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

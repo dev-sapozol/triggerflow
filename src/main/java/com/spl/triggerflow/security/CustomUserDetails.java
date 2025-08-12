@@ -1,5 +1,6 @@
 package com.spl.triggerflow.security;
 
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import com.spl.triggerflow.entity.UserEntity;
 
@@ -13,7 +14,7 @@ public class CustomUserDetails extends User {
         super(
                 user.getEmail(), // username
                 user.getPassword(), // hashed pwd
-                Collections.singleton(() -> user.getRole()) // authorities
+                Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole().toUpperCase()))
         );
         this.user = user;
     }

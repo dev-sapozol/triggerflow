@@ -33,11 +33,11 @@ public class JwtService {
                 : now.plusSeconds(86_400); // 1 día
 
         return Jwts.builder()
-                .subject(String.valueOf(user.getId())) 
+                .subject(user.getEmail()) 
                 .claim("role", user.getRole())
                 .issuedAt(Date.from(now))
                 .expiration(Date.from(expiration))
-                .signWith(secretKey)
+                .signWith(secretKey, Jwts.SIG.HS256)
                 .compact();
     }
 
